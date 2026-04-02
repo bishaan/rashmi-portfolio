@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Enthusiasm Gap — Rashmi Bhuyan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F8F7F4;--bg2:#F2F0EC;--ink:#252B35;--ink2:#525A68;
+  --muted:#8E95A0;--rule:#E0DDD8;--white:#FFFFFF;
+  --sage:#6B9E92;--sage-l:#EAF3F1;--sage-d:#4A8075;
+  --rose:#B87E78;--rose-l:#F5ECEA;
+  --laven:#8878A8;--laven-l:#EEE9F5;
+  --sand:#B89A6A;--sand-l:#F5EFE4;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:16px}
+a{text-decoration:none;color:inherit}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,247,244,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.nav-inner{max-width:900px;margin:0 auto;padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px}.nav-logo span{color:var(--sage)}
+.nav-back{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--ink2);transition:color .2s}.nav-back:hover{color:var(--rose)}
+
+.case-hero{background:var(--rose-l);padding:120px 32px 72px;border-bottom:1px solid rgba(184,126,120,.2)}
+.case-hero-inner{max-width:900px;margin:0 auto}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);margin-bottom:20px}
+.case-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,52px);line-height:1.12;color:var(--ink);margin-bottom:20px;max-width:680px}
+.case-hero h1 em{font-style:italic;color:var(--rose)}
+.hero-subtitle{font-size:17px;color:var(--ink2);max-width:580px;line-height:1.7;margin-bottom:40px}
+.hero-meta{display:flex;border:1px solid rgba(184,126,120,.25);border-radius:12px;overflow:hidden;background:var(--white);flex-wrap:wrap}
+.meta-cell{padding:16px 24px;border-right:1px solid var(--rule);flex:1;min-width:120px}.meta-cell:last-child{border-right:none}
+.meta-label{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.meta-value{font-size:13px;font-weight:600;color:var(--ink)}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.kpi-card{background:var(--white);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(184,126,120,.2)}
+.kpi-num{font-family:'DM Serif Display',serif;font-size:34px;display:block;line-height:1;margin-bottom:4px}
+.kpi-desc{font-size:11px;color:var(--muted);line-height:1.4}
+.kpi-rose .kpi-num{color:var(--rose)}.kpi-sage .kpi-num{color:var(--sage)}.kpi-laven .kpi-num{color:var(--laven)}.kpi-sand .kpi-num{color:var(--sand)}
+
+.content-wrap{max-width:900px;margin:0 auto;padding:0 32px}
+.cs-section{padding:72px 0;border-bottom:1px solid var(--rule)}.cs-section:last-child{border-bottom:none}
+.cs-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.cs-section h2{font-family:'DM Serif Display',serif;font-size:clamp(22px,3vw,30px);color:var(--ink);margin-bottom:24px;line-height:1.25}
+.cs-section p{color:var(--ink2);font-size:15.5px;line-height:1.8;margin-bottom:16px;max-width:680px}
+.cs-section p:last-of-type{margin-bottom:0}.cs-section strong{color:var(--ink);font-weight:600}
+
+.callout{border-radius:12px;padding:20px 24px;margin:28px 0;border-left:3px solid}
+.callout p{font-size:15px;margin:0;max-width:100%}
+.callout-rose{background:var(--rose-l);border-color:var(--rose)}
+.callout-sage{background:var(--sage-l);border-color:var(--sage)}
+.callout-sand{background:var(--sand-l);border-color:var(--sand)}
+.callout-laven{background:var(--laven-l);border-color:var(--laven)}
+
+.pivot-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin:32px 0}
+.pivot-card{border-radius:12px;padding:24px}
+.pivot-before{background:var(--sand-l)}.pivot-after{background:var(--rose-l)}
+.pivot-clabel{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;display:block}
+.pivot-before .pivot-clabel{color:var(--sand)}.pivot-after .pivot-clabel{color:var(--rose)}
+.pivot-text{font-size:15px;font-weight:600;color:var(--ink);line-height:1.5}
+.pivot-arrow{font-size:28px;color:var(--muted);text-align:center}
+
+.failure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0}
+.failure-card{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:24px;border-top:3px solid var(--rose)}
+.failure-num{font-family:'DM Serif Display',serif;font-size:36px;color:var(--rose);margin-bottom:8px;display:block}
+.failure-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:10px}
+.failure-desc{font-size:13.5px;color:var(--ink2);line-height:1.6;margin-bottom:10px}
+.failure-quote{font-size:12.5px;font-style:italic;color:var(--rose)}
+
+.phase-table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden;font-size:13.5px;border:1px solid var(--rule);margin:28px 0}
+.phase-table th{background:var(--ink);color:var(--white);padding:10px 16px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.phase-table td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+.phase-table tr:last-child td{border-bottom:none}
+.phase-table tr:nth-child(even) td{background:var(--bg2)}
+
+.p-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:32px 0}
+.p-stat{border-radius:12px;padding:20px;text-align:center}
+.p-stat-rose{background:var(--rose-l)}.p-stat-sage{background:var(--sage-l)}
+.p-stat-laven{background:var(--laven-l)}.p-stat-sand{background:var(--sand-l)}
+.p-stat-num{font-family:'DM Serif Display',serif;font-size:36px;line-height:1;margin-bottom:6px;display:block}
+.p-stat-rose .p-stat-num{color:var(--rose)}.p-stat-sage .p-stat-num{color:var(--sage)}
+.p-stat-laven .p-stat-num{color:var(--laven)}.p-stat-sand .p-stat-num{color:var(--sand)}
+.p-stat-lbl{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:3px;display:block}
+.p-stat-sub{font-size:11px;color:var(--muted)}
+
+.screener-list{margin:28px 0;display:flex;flex-direction:column;gap:12px}
+.screener-item{display:flex;gap:16px;background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:16px 20px;align-items:flex-start}
+.screener-icon{width:28px;height:28px;border-radius:50%;background:var(--rose-l);color:var(--rose);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.screener-q-text{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.screener-reason{font-size:13px;color:var(--ink2);line-height:1.5}
+
+.rec-list{margin:32px 0}
+.rec-item{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--rule);align-items:flex-start}
+.rec-item:first-child{padding-top:0}.rec-item:last-child{border-bottom:none}
+.rec-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:16px;flex-shrink:0}
+.rn-rose{background:var(--rose-l);color:var(--rose)}.rn-sage{background:var(--sage-l);color:var(--sage)}
+.rn-laven{background:var(--laven-l);color:var(--laven)}.rn-sand{background:var(--sand-l);color:var(--sand)}
+.rec-tag{font-family:'DM Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px;display:block}
+.rt-rose{color:var(--rose)}.rt-sage{color:var(--sage)}.rt-laven{color:var(--laven)}.rt-sand{color:var(--sand)}
+.rec-title{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.rec-desc{font-size:14px;color:var(--ink2);line-height:1.65;margin-bottom:8px}
+.rec-source{font-size:12px;color:var(--muted);font-style:italic}
+
+.impact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:32px 0}
+.impact-card{border-radius:12px;padding:28px 24px}
+.ic-rose{background:var(--rose-l)}.ic-sage{background:var(--sage-l)}
+.ic-laven{background:var(--laven-l)}.ic-sand{background:var(--sand-l)}
+.impact-num{font-family:'DM Serif Display',serif;font-size:44px;display:block;line-height:1;margin-bottom:6px}
+.ic-rose .impact-num{color:var(--rose)}.ic-sage .impact-num{color:var(--sage)}
+.ic-laven .impact-num{color:var(--laven)}.ic-sand .impact-num{color:var(--sand)}
+.impact-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;display:block}
+.impact-detail{font-size:13.5px;color:var(--ink2);line-height:1.6;border-top:1px solid var(--rule);padding-top:12px}
+
+.reflect-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0}
+.reflect-card{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:24px}
+.reflect-card h3{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:10px}
+.reflect-card p{font-size:13.5px;color:var(--ink2);line-height:1.65;margin:0}
+
+.next-case{background:var(--ink);border-radius:16px;padding:48px;margin:72px 0 48px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.next-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}
+.next-title{font-family:'DM Serif Display',serif;font-size:24px;color:#fff;margin-bottom:4px}
+.next-sub{font-size:14px;color:rgba(255,255,255,.45)}
+.next-btn{background:var(--sage);color:#fff;padding:14px 28px;border-radius:8px;font-size:14px;font-weight:600;white-space:nowrap;flex-shrink:0;transition:background .2s}
+.next-btn:hover{background:var(--sage-d)}
+
+footer{text-align:center;padding:32px;font-size:13px;color:var(--muted);border-top:1px solid var(--rule);max-width:900px;margin:0 auto}
+
+@media(max-width:720px){
+  .case-hero{padding:100px 20px 48px}.content-wrap{padding:0 20px}
+  .kpi-row,.p-stats{grid-template-columns:repeat(2,1fr)}
+  .failure-grid,.reflect-grid,.impact-grid{grid-template-columns:1fr}
+  .pivot-grid{grid-template-columns:1fr}.pivot-arrow{display:none}
+  .next-case{flex-direction:column;padding:32px}
+  .meta-cell{min-width:45%;border-right:none;border-bottom:1px solid var(--rule)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Rashmi<span>.</span></a>
+    <a href="index.html#work" class="nav-back">&#8592; All Case Studies</a>
+  </div>
+</nav>
+
+<div class="case-hero">
+  <div class="case-hero-inner">
+    <p class="hero-eyebrow">Case Study &middot; RAD Lab, SF State &middot; 2022&ndash;2024</p>
+    <h1>The <em>Enthusiasm Gap</em></h1>
+    <p class="hero-subtitle">Why verbal interest didn't become digital sign-ups &mdash; and what the data revealed about a portal that was destroying enthusiasm it didn't create.</p>
+
+    <div class="hero-meta">
+      <div class="meta-cell"><p class="meta-label">Role</p><p class="meta-value">UX Research Lead</p></div>
+      <div class="meta-cell"><p class="meta-label">Duration</p><p class="meta-value">3 Months</p></div>
+      <div class="meta-cell"><p class="meta-label">Participants</p><p class="meta-value">~120 Total</p></div>
+      <div class="meta-cell"><p class="meta-label">Domain</p><p class="meta-value">Higher Ed &middot; D2C</p></div>
+      <div class="meta-cell"><p class="meta-label">Methods</p><p class="meta-value">Survey, Heatmaps, Usability, Diary</p></div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card kpi-rose"><span class="kpi-num">62%</span><span class="kpi-desc">Increase in sign-up conversion</span></div>
+      <div class="kpi-card kpi-sage"><span class="kpi-num">92%</span><span class="kpi-desc">Faster to find the sign-up link</span></div>
+      <div class="kpi-card kpi-laven"><span class="kpi-num">40%</span><span class="kpi-desc">Decrease in bounce rate</span></div>
+      <div class="kpi-card kpi-sand"><span class="kpi-num">&#36;</span><span class="kpi-desc">Grant funding secured on schedule</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <div class="cs-section">
+    <p class="cs-eyebrow">01 / Context</p>
+    <h2>The platform had traffic. It didn't have participants.</h2>
+    <p>The RAD Lab runs federally-funded cognitive psychology research at SF State. Its participant pool &mdash; undergraduate students earning extra credit &mdash; is the engine keeping grant funding alive. Enrollment quotas feed grant reporting cycles. Falling short didn't just mean fewer participants: it put the next funding phase at risk.</p>
+    <p>The portal had footfall. It didn't have enrollments. And the initial hypothesis from the lab pointed squarely at the students.</p>
+
+    <div class="pivot-grid">
+      <div class="pivot-card pivot-before">
+        <span class="pivot-clabel">Initial Assumption</span>
+        <p class="pivot-text">"Students weren't interested enough to follow through after the recruitment talk."</p>
+      </div>
+      <div class="pivot-arrow">&rarr;</div>
+      <div class="pivot-card pivot-after">
+        <span class="pivot-clabel">Researcher Discovery</span>
+        <p class="pivot-text">"The website was actively destroying interest that already existed &mdash; through information overload, buried CTAs, and a paradox of choice."</p>
+      </div>
+    </div>
+
+    <div class="callout callout-rose">
+      <p><strong>Business stakes:</strong> Enrollment quotas feed grant reporting cycles. Falling short didn't just mean fewer participants &mdash; it put the next funding phase at risk. Framing this as a conversion funnel problem from the start created immediate stakeholder buy-in with grant administration.</p>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <p class="cs-eyebrow">02 / Research Design</p>
+    <h2>Mixed-methods across 3 phases &mdash; prioritized by risk, impact, and alignment</h2>
+    <p>A 10-day pilot study validated KPI alignment before committing to the full 3-month program. Methods were sequenced so each phase answered the gaps left by the previous one.</p>
+
+    <table class="phase-table">
+      <thead>
+        <tr><th>Phase</th><th>Method</th><th>Purpose</th><th>Why this method</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Discovery</strong></td><td>Survey + Field Interviews</td><td>Quantify the Enthusiasm Gap</td><td>Survey gave scale; cafeteria interviews captured students mid-abandonment</td></tr>
+        <tr><td><strong>Diagnostic</strong></td><td>Heatmaps + Usability Testing</td><td>Locate where drop-off occurred</td><td>Behavioral data surfaced rage clicks and scroll depth that interviews couldn't</td></tr>
+        <tr><td><strong>Diagnostic</strong></td><td>Contextual Inquiry</td><td>Observe real-time frustration</td><td>Think-aloud revealed hesitation invisible in post-hoc recall</td></tr>
+        <tr><td><strong>Synthesis</strong></td><td>Affinity Mapping + RStudio</td><td>Triangulate qual and quant signals</td><td>Prevented over-indexing on vivid quotes vs. what heatmaps showed</td></tr>
+        <tr><td><strong>Validation</strong></td><td>Prototype Testing (Figma)</td><td>Test redesigned sign-up path</td><td>Validated before engineering investment; iterated rapidly</td></tr>
+        <tr><td><strong>Longitudinal</strong></td><td>Diary Studies</td><td>Track experience from talk to enrollment</td><td>Revealed memory decay arc &mdash; conversion window shorter than assumed</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cs-section">
+    <p class="cs-eyebrow">03 / Participants &amp; Recruitment</p>
+    <h2>~120 participants &mdash; recruited where the problem lived</h2>
+
+    <div class="p-stats">
+      <div class="p-stat p-stat-rose"><span class="p-stat-num">~100</span><span class="p-stat-lbl">Survey respondents</span><span class="p-stat-sub">Email to full student population</span></div>
+      <div class="p-stat p-stat-sage"><span class="p-stat-num">8</span><span class="p-stat-lbl">Field interviews</span><span class="p-stat-sub">Cafeteria &middot; coffee incentive</span></div>
+      <div class="p-stat p-stat-laven"><span class="p-stat-num">~12</span><span class="p-stat-lbl">Usability testing</span><span class="p-stat-sub">Moderated, in-lab</span></div>
+      <div class="p-stat p-stat-sand"><span class="p-stat-num">~20</span><span class="p-stat-lbl">Diary participants</span><span class="p-stat-sub">Talk &rarr; enrollment arc</span></div>
+    </div>
+
+    <p>Cafeteria field recruitment captured students mid-abandonment &mdash; in the environment where the decision not to sign up was actually happening. This produced richer data than a lab setting because participants were still actively experiencing the friction rather than recalling it.</p>
+
+    <div class="screener-list">
+      <div class="screener-item">
+        <div class="screener-icon">Q</div>
+        <div>
+          <p class="screener-q-text">"Attended a research talk in the last 6 months?"</p>
+          <p class="screener-reason">Ensured participants had experienced the full funnel &mdash; ruling out those never exposed to the conversion opportunity.</p>
+        </div>
+      </div>
+      <div class="screener-item">
+        <div class="screener-icon">Q</div>
+        <div>
+          <p class="screener-q-text">"Interest in paid academic studies: 4&ndash;5 / 5?"</p>
+          <p class="screener-reason">Isolated the gap between genuine intent and follow-through &mdash; filtered out disinterest as an explanation for non-conversion.</p>
+        </div>
+      </div>
+      <div class="screener-item">
+        <div class="screener-icon">Q</div>
+        <div>
+          <p class="screener-q-text">"Mix of Yes / No on 'visited the RAD website'"</p>
+          <p class="screener-reason">Compared those who reached the portal vs. those who never arrived &mdash; testing whether the problem was pre-portal or portal-specific.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <p class="cs-eyebrow">04 / Field Findings</p>
+    <h2>3 critical failures &mdash; none of them were about student motivation</h2>
+    <p>Behavioral data, interviews, and heatmaps all pointed to the same conclusion: the website was actively destroying enthusiasm that students arrived with. The problem wasn't disinterest &mdash; it was design.</p>
+
+    <div class="failure-grid">
+      <div class="failure-card">
+        <span class="failure-num">01</span>
+        <p class="failure-title">The Wall of Science</p>
+        <p class="failure-desc">The landing page opened with dense academic abstracts. Students felt they had to read everything before they were "allowed" to sign up &mdash; a gatekeeper that didn't exist in reality but was communicated loudly by the UI.</p>
+        <p class="failure-quote">&#8627; "I felt like I had to earn the right to sign up"</p>
+      </div>
+      <div class="failure-card">
+        <span class="failure-num">02</span>
+        <p class="failure-title">The Hidden Gateway</p>
+        <p class="failure-desc">The sign-up CTA was below the fold &mdash; 3+ scrolls required. Heatmaps showed rage clicks on non-interactive text elements as students searched for the entry point.</p>
+        <p class="failure-quote">&#8627; Heatmap: zero clicks above the fold on the CTA region</p>
+      </div>
+      <div class="failure-card">
+        <span class="failure-num">03</span>
+        <p class="failure-title">The Paradox of Choice</p>
+        <p class="failure-desc">Multiple repeated links pointing to the same destination made students second-guess which was "right." Hesitation at the point of action killed momentum that had survived everything else.</p>
+        <p class="failure-quote">&#8627; Think-aloud: 6 of 8 participants verbalized confusion on which link to click</p>
+      </div>
+    </div>
+
+    <div class="callout callout-laven">
+      <p><strong>Stakeholder challenge:</strong> Researchers framed academic abstracts as "transparency." Research reframed it with heatmap data: the "transparency" content was causing the exact drop-off it meant to prevent. The solution preserved transparency through an expandable section &mdash; nobody had to lose anything.</p>
+    </div>
+
+    <p>Diary studies revealed the conversion window post-recruitment talk was shorter than anyone assumed. Students who didn't sign up within 24&ndash;48 hours almost never returned. Memory decay &mdash; not sustained disinterest &mdash; was eliminating late conversions.</p>
+  </div>
+
+  <div class="cs-section">
+    <p class="cs-eyebrow">05 / Recommendations</p>
+    <h2>4 interventions &mdash; each traceable to evidence</h2>
+
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-num rn-rose">1</div>
+        <div class="rec-content">
+          <span class="rec-tag rt-rose">Priority 1 &middot; CTA Visibility</span>
+          <p class="rec-title">Action-Oriented Hero &mdash; CTA above the fold</p>
+          <p class="rec-desc">Move the sign-up CTA above the fold as the primary action. Academic abstracts moved to an expandable section &mdash; transparency preserved, friction eliminated. Students who want detail can access it; students who want to sign up no longer have to earn the right to do so.</p>
+          <p class="rec-source">&#8627; Heatmap (zero clicks above fold) + interviews: "I felt like I had to earn the right to sign up"</p>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num rn-sage">2</div>
+        <div class="rec-content">
+          <span class="rec-tag rt-sage">Priority 2 &middot; Cognitive Load</span>
+          <p class="rec-title">Quick-Match Study Filter</p>
+          <p class="rec-desc">Filter studies by available time slot directly on the landing page. Eliminates the cognitive overhead of browsing studies that don't fit a student's schedule &mdash; which was causing mid-funnel abandonment even after students had decided to participate.</p>
+          <p class="rec-source">&#8627; Diary studies: students returned looking for "a study that fits my Tuesday"</p>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num rn-laven">3</div>
+        <div class="rec-content">
+          <span class="rec-tag rt-laven">Priority 3 &middot; Form Abandonment</span>
+          <p class="rec-title">Progress Bar in Sign-Up Flow</p>
+          <p class="rec-desc">Visible progress indicator during multi-step registration. Reduces form fatigue and abandonment at the final stage &mdash; which was the last point of drop-off even for students who had navigated the landing page successfully.</p>
+          <p class="rec-source">&#8627; Usability testing: "I didn't know how much more there was. I just quit."</p>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num rn-sand">4</div>
+        <div class="rec-content">
+          <span class="rec-tag rt-sand">Priority 4 &middot; Decision Clarity</span>
+          <p class="rec-title">Consolidate Duplicate CTAs</p>
+          <p class="rec-desc">Single, clearly labeled sign-up entry point throughout the site. Eliminates the paradox of choice at the final decision moment &mdash; 6 of 8 think-aloud participants verbalized confusion about which link was correct.</p>
+          <p class="rec-source">&#8627; Think-aloud: 6 of 8 participants verbalized confusion about "the right link"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <p class="cs-eyebrow">06 / Impact</p>
+    <h2>Measured outcomes, with baselines</h2>
+
+    <div class="impact-grid">
+      <div class="impact-card ic-rose">
+        <span class="impact-num">62%</span>
+        <span class="impact-label">Increase in sign-up conversion</span>
+        <p class="impact-detail">Measured against pre-implementation baseline. Driven primarily by moving the CTA above the fold and consolidating duplicate sign-up entry points.</p>
+      </div>
+      <div class="impact-card ic-sage">
+        <span class="impact-num">92%</span>
+        <span class="impact-label">Faster to find the sign-up link</span>
+        <p class="impact-detail">Time-to-CTA reduced from 140 seconds to 12 seconds. Direct result of removing the Wall of Science as the first encounter on the page.</p>
+      </div>
+      <div class="impact-card ic-laven">
+        <span class="impact-num">40%</span>
+        <span class="impact-label">Decrease in bounce rate</span>
+        <p class="impact-detail">Landing page bounce rate dropped 40% post-launch. Action-oriented hero and Quick-Match filter gave students an immediate reason to stay.</p>
+      </div>
+      <div class="impact-card ic-sand">
+        <span class="impact-num">&#36;</span>
+        <span class="impact-label">Grant funding secured on schedule</span>
+        <p class="impact-detail">Participant quotas met &mdash; the downstream business outcome that protected the lab's next funding phase and validated the research investment.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <p class="cs-eyebrow">07 / Reflections</p>
+    <h2>What worked, what I'd change</h2>
+
+    <div class="reflect-grid">
+      <div class="reflect-card">
+        <h3>What worked</h3>
+        <p>Framing as a conversion funnel problem (not student motivation) created immediate stakeholder buy-in. Cafeteria field recruitment captured students mid-abandonment &mdash; richer than a lab setting. Mixed-method triangulation prevented over-indexing on vivid interview quotes. Diary studies revealed the memory decay arc: the conversion window post-talk was shorter than anyone had assumed.</p>
+      </div>
+      <div class="reflect-card">
+        <h3>What I'd change</h3>
+        <p>I'd involve the data scientist in synthesis earlier &mdash; RStudio work ran in parallel rather than in dialogue with qualitative themes. I'd also address the stakeholder alignment tension (academic transparency vs. UX simplicity) with earlier workshops. Graduate students were underrepresented &mdash; their funnel experience may have differed meaningfully from undergrads.</p>
+      </div>
+      <div class="reflect-card">
+        <h3>Biggest lesson</h3>
+        <p>The data a team uses to build a product often reflects what was easy to collect &mdash; not what users actually do. The RAD Lab had clickthrough data but no behavioral observation. Research gave the lab an evidence base it didn't know it was missing, and turned a student motivation problem into a design problem that was entirely solvable.</p>
+      </div>
+      <div class="reflect-card">
+        <h3>On stakeholder pushback</h3>
+        <p>Researchers resisted removing the academic abstracts, framing it as a transparency commitment. The turning point was showing heatmap data: the "transparency" content was causing the exact drop-off it meant to prevent. Evidence-first communication worked where persuasion alone would have failed. The expandable section solution meant nobody had to lose anything.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-case">
+    <div>
+      <p class="next-label">Also in this portfolio</p>
+      <p class="next-title">Project Clean Stream</p>
+      <p class="next-sub">Action Behavior Centers &middot; Healthcare &middot; B2B</p>
+    </div>
+    <a href="clean-stream.html" class="next-btn">Read case study &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Rashmi Bhuyan &middot; UX Researcher &middot; contact.rashmibhuyan@gmail.com</p>
+</footer>
+</body>
+</html>

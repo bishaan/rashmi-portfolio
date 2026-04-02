@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Clean Stream — Rashmi Bhuyan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #F8F7F4;
+  --bg2:     #F2F0EC;
+  --ink:     #252B35;
+  --ink2:    #525A68;
+  --muted:   #8E95A0;
+  --rule:    #E0DDD8;
+  --white:   #FFFFFF;
+  --sage:    #6B9E92;
+  --sage-l:  #EAF3F1;
+  --sage-d:  #4A8075;
+  --rose:    #B87E78;
+  --rose-l:  #F5ECEA;
+  --laven:   #8878A8;
+  --laven-l: #EEE9F5;
+  --sand:    #B89A6A;
+  --sand-l:  #F5EFE4;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ─────────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(248,247,244,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  color: var(--ink);
+}
+.nav-logo span { color: var(--sage); }
+.nav-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink2);
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--sage); }
+
+/* ── HERO ────────────────────────────────────────────────────────────────── */
+.case-hero {
+  background: var(--sage-l);
+  padding: 120px 32px 72px;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(107,158,146,0.2);
+}
+.case-hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage-d);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.case-hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.12;
+  color: var(--ink);
+  margin-bottom: 20px;
+  max-width: 680px;
+}
+.case-hero h1 em { font-style: italic; color: var(--sage-d); }
+.hero-subtitle {
+  font-size: 17px;
+  color: var(--ink2);
+  max-width: 580px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+/* Meta strip */
+.hero-meta {
+  display: flex;
+  gap: 0;
+  border: 1px solid rgba(107,158,146,0.25);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--white);
+  flex-wrap: wrap;
+}
+.meta-cell {
+  padding: 16px 24px;
+  border-right: 1px solid var(--rule);
+  flex: 1;
+  min-width: 120px;
+}
+.meta-cell:last-child { border-right: none; }
+.meta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.meta-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* KPI row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+.kpi-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(107,158,146,0.2);
+  text-align: center;
+}
+.kpi-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 34px;
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.kpi-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.kpi-sage  .kpi-num { color: var(--sage); }
+.kpi-rose  .kpi-num { color: var(--rose); }
+.kpi-laven .kpi-num { color: var(--laven); }
+.kpi-sand  .kpi-num { color: var(--sand); }
+
+/* ── CONTENT ─────────────────────────────────────────────────────────────── */
+.content-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Section block */
+.cs-section {
+  padding: 72px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.cs-section:last-child { border-bottom: none; }
+
+.cs-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.cs-section h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(22px, 3vw, 30px);
+  color: var(--ink);
+  margin-bottom: 24px;
+  line-height: 1.25;
+}
+.cs-section p {
+  color: var(--ink2);
+  font-size: 15.5px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  max-width: 680px;
+}
+.cs-section p:last-of-type { margin-bottom: 0; }
+.cs-section strong { color: var(--ink); font-weight: 600; }
+
+/* Callout box */
+.callout {
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 28px 0;
+  border-left: 3px solid;
+}
+.callout p { font-size: 15px; margin: 0; max-width: 100%; }
+.callout-sage  { background: var(--sage-l); border-color: var(--sage); }
+.callout-rose  { background: var(--rose-l); border-color: var(--rose); }
+.callout-sand  { background: var(--sand-l); border-color: var(--sand); }
+.callout-laven { background: var(--laven-l); border-color: var(--laven); }
+
+/* Persona cards */
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 32px 0;
+}
+.persona-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 24px;
+  border-top: 3px solid;
+}
+.persona-card.p-sage  { border-top-color: var(--sage); }
+.persona-card.p-rose  { border-top-color: var(--rose); }
+.persona-card.p-laven { border-top-color: var(--laven); }
+.persona-abbr {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+.p-sage  .persona-abbr { color: var(--sage); }
+.p-rose  .persona-abbr { color: var(--rose); }
+.p-laven .persona-abbr { color: var(--laven); }
+.persona-role {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.persona-desc { font-size: 13.5px; color: var(--ink2); line-height: 1.6; }
+
+/* Pivot block */
+.pivot-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+  margin: 32px 0;
+}
+.pivot-card {
+  border-radius: 12px;
+  padding: 24px;
+}
+.pivot-before { background: var(--rose-l); }
+.pivot-after  { background: var(--sage-l); }
+.pivot-clabel {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  display: block;
+}
+.pivot-before .pivot-clabel { color: var(--rose); }
+.pivot-after  .pivot-clabel { color: var(--sage-d); }
+.pivot-text { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+.pivot-arrow { font-size: 28px; color: var(--muted); text-align: center; }
+
+/* Methods grid */
+.method-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px 0;
+}
+.method-col { }
+.method-col-header {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-radius: 8px 8px 0 0;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+.mh-sage  { background: var(--sage); }
+.mh-laven { background: var(--laven); }
+.method-item {
+  padding: 16px 14px;
+  border-left: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.method-item:last-child { border-radius: 0 0 8px 8px; }
+.method-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.method-why  { font-size: 13px; color: var(--ink2); line-height: 1.55; margin-bottom: 6px; }
+.method-why-rationale {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--sage);
+  line-height: 1.5;
+}
+.method-why-rationale-laven { color: var(--laven); }
+
+/* Participant stats */
+.p-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 32px 0;
+}
+.p-stat {
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+.p-stat-sage  { background: var(--sage-l); }
+.p-stat-rose  { background: var(--rose-l); }
+.p-stat-laven { background: var(--laven-l); }
+.p-stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 6px;
+  display: block;
+}
+.p-stat-sage  .p-stat-num { color: var(--sage); }
+.p-stat-rose  .p-stat-num { color: var(--rose); }
+.p-stat-laven .p-stat-num { color: var(--laven); }
+.p-stat-lbl { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; display: block; }
+.p-stat-sub { font-size: 11.5px; color: var(--muted); }
+
+/* Lifecycle table */
+.lifecycle-wrap { overflow-x: auto; margin: 32px 0; }
+.lifecycle-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 14px;
+  border: 1px solid var(--rule);
+}
+.lifecycle-table th {
+  background: var(--ink);
+  color: var(--white);
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.lifecycle-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink2);
+  vertical-align: top;
+}
+.lifecycle-table tr:last-child td { border-bottom: none; }
+.lifecycle-table tr:nth-child(even) td { background: var(--bg2); }
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-sage  { background: var(--sage-l); color: var(--sage-d); }
+.badge-rose  { background: var(--rose-l); color: var(--rose); }
+.badge-sand  { background: var(--sand-l); color: var(--sand); }
+
+/* AI section */
+.ai-steps { margin: 32px 0; display: flex; flex-direction: column; gap: 16px; }
+.ai-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--laven-l);
+  color: var(--laven);
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 5px; }
+.step-desc { font-size: 13.5px; color: var(--ink2); line-height: 1.6; }
+.code { font-family: 'DM Mono', monospace; font-size: 12px; background: var(--laven-l); color: var(--laven); padding: 1px 6px; border-radius: 4px; }
+
+/* Co-design grid */
+.codesign-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px 0;
+}
+.cd-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.cd-header {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cd-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.cdh-sage  { background: var(--sage-l); }
+.cdh-rose  { background: var(--rose-l); }
+.cdh-laven { background: var(--laven-l); }
+.cdh-sand  { background: var(--sand-l); }
+.cdd-sage  { background: var(--sage); }
+.cdd-rose  { background: var(--rose); }
+.cdd-laven { background: var(--laven); }
+.cdd-sand  { background: var(--sand); }
+.cd-header-title { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.cd-body { padding: 16px; }
+.cd-need {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.cdn-sage  { color: var(--sage); }
+.cdn-rose  { color: var(--rose); }
+.cdn-laven { color: var(--laven); }
+.cdn-sand  { color: var(--sand); }
+.cd-body p { font-size: 13px; color: var(--ink2); line-height: 1.6; margin-bottom: 10px; }
+.cd-body p:last-child { margin-bottom: 0; }
+
+/* Recommendations */
+.rec-list { margin: 32px 0; }
+.rec-item {
+  display: flex;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: flex-start;
+}
+.rec-item:first-child { padding-top: 0; }
+.rec-item:last-child { border-bottom: none; }
+.rec-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.rn-sage  { background: var(--sage-l); color: var(--sage); }
+.rn-rose  { background: var(--rose-l); color: var(--rose); }
+.rn-laven { background: var(--laven-l); color: var(--laven); }
+.rn-sand  { background: var(--sand-l); color: var(--sand); }
+.rec-content { flex: 1; }
+.rec-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 5px;
+  display: block;
+}
+.rt-sage  { color: var(--sage); }
+.rt-rose  { color: var(--rose); }
+.rt-laven { color: var(--laven); }
+.rt-sand  { color: var(--sand); }
+.rec-title { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.rec-desc { font-size: 14px; color: var(--ink2); line-height: 1.65; margin-bottom: 8px; }
+.rec-source { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* Impact cards */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 32px 0;
+}
+.impact-card {
+  border-radius: 12px;
+  padding: 28px 20px;
+  text-align: center;
+}
+.ic-sage  { background: var(--sage-l); }
+.ic-rose  { background: var(--rose-l); }
+.ic-laven { background: var(--laven-l); }
+.impact-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 44px;
+  display: block;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.ic-sage  .impact-num { color: var(--sage); }
+.ic-rose  .impact-num { color: var(--rose); }
+.ic-laven .impact-num { color: var(--laven); }
+.impact-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 12px;
+  display: block;
+}
+.impact-detail {
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 1.55;
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+}
+.impact-baseline {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 6px;
+  font-family: 'DM Mono', monospace;
+}
+
+/* Reflections */
+.reflect-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px 0;
+}
+.reflect-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 24px;
+}
+.reflect-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.reflect-card p { font-size: 13.5px; color: var(--ink2); line-height: 1.65; margin: 0; }
+
+/* Next case */
+.next-case {
+  background: var(--ink);
+  border-radius: 16px;
+  padding: 48px;
+  margin: 72px 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.next-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 8px;
+}
+.next-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.next-sub { font-size: 14px; color: rgba(255,255,255,0.45); }
+.next-btn {
+  background: var(--sage);
+  color: var(--white);
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.next-btn:hover { background: var(--sage-d); }
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 32px;
+  font-size: 13px;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .case-hero { padding: 100px 20px 48px; }
+  .content-wrap { padding: 0 20px; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .persona-grid, .method-grid, .codesign-grid, .reflect-grid { grid-template-columns: 1fr; }
+  .p-stats { grid-template-columns: repeat(3, 1fr); }
+  .impact-grid { grid-template-columns: 1fr; }
+  .pivot-grid { grid-template-columns: 1fr; }
+  .pivot-arrow { display: none; }
+  .next-case { flex-direction: column; padding: 32px; }
+  .hero-meta { flex-wrap: wrap; }
+  .meta-cell { min-width: 45%; border-right: none; border-bottom: 1px solid var(--rule); }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Rashmi<span>.</span></a>
+    <a href="index.html#work" class="nav-back">← All Case Studies</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="case-hero">
+  <div class="case-hero-inner">
+    <p class="hero-eyebrow">Case Study &middot; Action Behavior Centers &middot; 2025</p>
+    <h1>Project Clean Stream:<br><em>Behavioral Data Optimization</em></h1>
+    <p class="hero-subtitle">
+      How an AI-driven research framework uncovered that "bad data" in autism therapy was a design failure — not a training failure.
+    </p>
+
+    <div class="hero-meta">
+      <div class="meta-cell">
+        <p class="meta-label">Role</p>
+        <p class="meta-value">UX Research Lead (Solo)</p>
+      </div>
+      <div class="meta-cell">
+        <p class="meta-label">Duration</p>
+        <p class="meta-value">12 Weeks</p>
+      </div>
+      <div class="meta-cell">
+        <p class="meta-label">Participants</p>
+        <p class="meta-value">55 across 3 roles</p>
+      </div>
+      <div class="meta-cell">
+        <p class="meta-label">Domain</p>
+        <p class="meta-value">Healthcare · B2B</p>
+      </div>
+      <div class="meta-cell">
+        <p class="meta-label">Methods</p>
+        <p class="meta-value">Mixed: Qual + Quant + AI</p>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card kpi-sage">
+        <span class="kpi-num">83%</span>
+        <span class="kpi-desc">Faster data logging<br>12s → 2s per event</span>
+      </div>
+      <div class="kpi-card kpi-rose">
+        <span class="kpi-num">90%</span>
+        <span class="kpi-desc">Reduction in<br>data entry errors</span>
+      </div>
+      <div class="kpi-card kpi-laven">
+        <span class="kpi-num">80%</span>
+        <span class="kpi-desc">Increase in<br>user engagement</span>
+      </div>
+      <div class="kpi-card kpi-sand">
+        <span class="kpi-num">55</span>
+        <span class="kpi-desc">Participants across<br>3 clinical roles</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- 01 Context -->
+  <div class="cs-section">
+    <p class="cs-eyebrow">01 / Context</p>
+    <h2>The ABA clinical trinity — and why data integrity is a patient safety issue</h2>
+
+    <p>Action Behavior Centers delivers one-on-one Applied Behavior Analysis (ABA) therapy for children with Autism Spectrum Disorder. Therapeutic progress depends on a continuous, unbroken loop of real-time behavioral data flowing across three interdependent roles.</p>
+
+    <div class="persona-grid">
+      <div class="persona-card p-sage">
+        <div class="persona-abbr">RBT</div>
+        <p class="persona-role">Registered Behavior Technician</p>
+        <p class="persona-desc">Logs behavioral data during active therapy sessions — often while physically managing challenging child behavior simultaneously.</p>
+      </div>
+      <div class="persona-card p-rose">
+        <div class="persona-abbr">BCBA</div>
+        <p class="persona-role">Board Certified Behavior Analyst</p>
+        <p class="persona-desc">Uses RBT session data to build and advance individualized treatment plans. Unusable data means no plan progression — directly stalling a child's development.</p>
+      </div>
+      <div class="persona-card p-laven">
+        <div class="persona-abbr">CD</div>
+        <p class="persona-role">Clinical Director</p>
+        <p class="persona-desc">Approves treatment plans and owns HIPAA compliance and billing accuracy across the center.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-rose">
+      <p><strong>The stakes:</strong> When session data is missing or corrupted, BCBAs cannot advance treatment plans. Children's therapeutic progress stalls. Clinicians burn out. And the organization faces regulatory and billing exposure. This was not a UX inconvenience — it was a clinical operations crisis.</p>
+    </div>
+  </div>
+
+  <!-- 02 Pivot -->
+  <div class="cs-section">
+    <p class="cs-eyebrow">02 / The Strategic Pivot</p>
+    <h2>Reframing the problem from "who" to "what"</h2>
+
+    <p>Before any research began, leadership had already formed a hypothesis. Understanding — and then dismantling — that hypothesis was the most consequential research decision I made on this project.</p>
+
+    <div class="pivot-grid">
+      <div class="pivot-card pivot-before">
+        <span class="pivot-clabel">Initial Assumption</span>
+        <p class="pivot-text">"RBTs aren't following clinical plans because they're too complex."</p>
+      </div>
+      <div class="pivot-arrow">→</div>
+      <div class="pivot-card pivot-after">
+        <span class="pivot-clabel">Researcher Discovery</span>
+        <p class="pivot-text">"RBTs are abandoning data entry because the UI is incompatible with the physical reality of therapy."</p>
+      </div>
+    </div>
+
+    <p>This pivot emerged during Week 3 shadowing sessions. While observing RBTs in active therapy, I noticed that data entry essentially stopped the moment a child became dysregulated. Technicians had to choose between managing the child safely and logging data — and every time, they correctly chose the child.</p>
+
+    <div class="callout callout-sage">
+      <p><strong>The research insight that changed everything:</strong> "Dirty Data" is a survival mechanism, not a compliance problem. Solving it required redesigning the data collection experience — not retraining the clinicians. Cognitive Load Theory gave me the language to make that argument credibly to both clinical and engineering leadership.</p>
+    </div>
+  </div>
+
+  <!-- 03 Research Design -->
+  <div class="cs-section">
+    <p class="cs-eyebrow">03 / Research Design</p>
+    <h2>Why these methods — not just what they were</h2>
+
+    <p>Method selection was driven by a single constraint: the most critical behaviors happen in the room, during active sessions, when RBTs are least able to articulate their experience. This ruled out surveys and unmoderated testing as primary methods and demanded observational, naturalistic approaches.</p>
+
+    <div class="method-grid">
+      <div class="method-col">
+        <div class="method-col-header mh-sage">Qualitative — The "Why"</div>
+        <div class="method-item">
+          <p class="method-name">Contextual Inquiry</p>
+          <p class="method-why">Shadowed RBTs across full 4-hour therapy sessions.</p>
+          <p class="method-why-rationale">↳ Chosen because self-report would systematically miss the "hands-busy" moments where data quality collapsed.</p>
+        </div>
+        <div class="method-item">
+          <p class="method-name">Diary Studies</p>
+          <p class="method-why">RBTs logged post-session frustration over 3 weeks.</p>
+          <p class="method-why-rationale">↳ Chosen to capture longitudinal fatigue and identify which session types correlated with churn spikes.</p>
+        </div>
+        <div class="method-item">
+          <p class="method-name">1-on-1 Depth Interviews</p>
+          <p class="method-why">BCBAs interviewed individually to surface data artifacts blocking plan advancement.</p>
+          <p class="method-why-rationale">↳ Individual sessions prevented BCBAs from deferring to each other's judgment in group settings.</p>
+        </div>
+      </div>
+      <div class="method-col">
+        <div class="method-col-header mh-laven">Quantitative — The "What"</div>
+        <div class="method-item">
+          <p class="method-name">Usability Benchmarking (SUS)</p>
+          <p class="method-why">Standardized scores for internal data-collection tools.</p>
+          <p class="method-why-rationale method-why-rationale-laven">↳ SUS scores translate across clinical and engineering audiences without requiring domain expertise.</p>
+        </div>
+        <div class="method-item">
+          <p class="method-name">Task Success Rate &amp; Error Logging</p>
+          <p class="method-why">Measured mis-tap frequency during simulated high-energy events.</p>
+          <p class="method-why-rationale method-why-rationale-laven">↳ Distinguished UI design flaws from environmental constraints — both require different interventions.</p>
+        </div>
+        <div class="method-item">
+          <p class="method-name">Time-on-Task Measurement</p>
+          <p class="method-why">Quantified per-event logging latency across all interaction states.</p>
+          <p class="method-why-rationale method-why-rationale-laven">↳ Established a concrete 12-second baseline that made the problem legible to engineering and product leadership.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 Participants -->
+  <div class="cs-section">
+    <p class="cs-eyebrow">04 / Participants & Research Operations</p>
+    <h2>55 participants across three clinical roles</h2>
+
+    <div class="p-stats">
+      <div class="p-stat p-stat-sage">
+        <span class="p-stat-num">35</span>
+        <span class="p-stat-lbl">RBTs</span>
+        <span class="p-stat-sub">10 remote · 25 in-clinic</span>
+      </div>
+      <div class="p-stat p-stat-rose">
+        <span class="p-stat-num">10</span>
+        <span class="p-stat-lbl">BCBAs</span>
+        <span class="p-stat-sub">Primary synthesis users</span>
+      </div>
+      <div class="p-stat p-stat-laven">
+        <span class="p-stat-num">10</span>
+        <span class="p-stat-lbl">CDs</span>
+        <span class="p-stat-sub">Plan approvers</span>
+      </div>
+    </div>
+
+    <p>RBTs were required to have completed more than 10 sessions per week using the current clinical workflow, with direct involvement in both batch-logging and real-time logging. Including remote RBTs was deliberate — remote delivery introduced distinct constraints that in-clinic shadowing alone could not surface.</p>
+
+    <div class="callout callout-sand">
+      <p><strong>ResOps note:</strong> Standard vendor recruitment was not viable in this HIPAA-compliant clinical environment. Participants were recruited offline via Google Sheets synchronized with clinical calendars. All research protocols and data handling were conducted in compliance with HIPAA requirements. No patient data was recorded or retained.</p>
+    </div>
+  </div>
+
+  <!-- 05 Findings -->
+  <div class="cs-section">
+    <p class="cs-eyebrow">05 / Field Findings</p>
+    <h2>The "Dirty Data" lifecycle — a four-phase degradation pattern</h2>
+
+    <p>Across shadowing sessions, a consistent hour-by-hour pattern emerged in how data quality degraded during a standard therapy block. This was structurally reproducible across the cohort — which is what made it actionable as a design problem rather than a training gap.</p>
+
+    <div class="lifecycle-wrap">
+      <table class="lifecycle-table">
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Hour 1: Setup</th>
+            <th>Hour 2: Intensity</th>
+            <th>Hour 3: Fatigue</th>
+            <th>Hour 4: Catch-up</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>UI Event</strong></td>
+            <td>4 taps required per log</td>
+            <td>Tablet physically abandoned for child safety</td>
+            <td>Mental notes substituted for logging</td>
+            <td>Mass retrospective entry ("data dump")</td>
+          </tr>
+          <tr>
+            <td><strong>Data Quality</strong></td>
+            <td><span class="badge badge-sage">High accuracy</span></td>
+            <td><span class="badge badge-rose">Non-existent</span></td>
+            <td><span class="badge badge-sand">Ambiguous</span></td>
+            <td><span class="badge badge-rose">Dirty / back-filled</span></td>
+          </tr>
+          <tr>
+            <td><strong>RBT Emotion</strong></td>
+            <td>Optimistic</td>
+            <td>Stressed</td>
+            <td>Drained</td>
+            <td>Frustrated</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-sage">
+      <p><strong>Core finding:</strong> Data quality collapsed precisely during high-intensity behavioral episodes — the most clinically important moments to capture. The UI required 4 taps per log when the RBT had zero free hands. Dirty data was not negligence. It was a rational coping mechanism under impossible cognitive and physical load.</p>
+    </div>
+
+    <p>BCBA interviews confirmed the downstream consequence: back-filled data produced timestamp distributions indistinguishable from accurate data. BCBAs couldn't tell which records were real-time and which were reconstructed — making the entire dataset suspect for plan-advancement decisions.</p>
+  </div>
+
+  <!-- 06 AI Synthesis -->
+  <div class="cs-section">
+    <p class="cs-eyebrow">06 / AI-Accelerated Synthesis</p>
+    <h2>Building a custom analysis pipeline with Cursor AI and RStudio</h2>
+
+    <p>55 participants across three roles generated a substantial body of transcripts, diary entries, and observational notes. Manual coding would have taken 3–4 weeks and introduced inter-rater reliability concerns. Instead, I built a custom pipeline.</p>
+
+    <div class="ai-steps">
+      <div class="ai-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <p class="step-title">Transcript preparation</p>
+          <p class="step-desc">All 55 transcripts and diary entries were de-identified and structured for programmatic processing. Remote RBT sessions were transcribed from recorded video calls; in-clinic sessions from field notes.</p>
+        </div>
+      </div>
+      <div class="ai-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <p class="step-title">Custom R code generation with Cursor AI</p>
+          <p class="step-desc">I used <span class="code">Cursor AI</span> to write custom <span class="code">R</span> scripts for sentiment detection and keyword frequency analysis tailored to the clinical lexicon. Rather than applying off-the-shelf NLP trained on general text, the scripts were designed around domain-specific frustration indicators — phrases that a general model would not flag as high-signal.</p>
+        </div>
+      </div>
+      <div class="ai-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <p class="step-title">Frustration keyword quantification</p>
+          <p class="step-desc">Scripts scanned transcripts for validated frustration-signal phrases, mapping frequency against session phase to confirm the hour-by-hour degradation pattern. This triangulation between observational and verbal data strengthened confidence in the core finding.</p>
+        </div>
+      </div>
+      <div class="ai-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <p class="step-title">Lexicon misalignment mapping</p>
+          <p class="step-desc">Term-frequency analysis across RBT vs. BCBA transcripts surfaced systematic vocabulary divergence — RBTs used field-naturalistic language while the UI used clinical taxonomy. This became a discrete, actionable recommendation for the product team.</p>
+        </div>
+      </div>
+      <div class="ai-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <p class="step-title">Human validation at every stage</p>
+          <p class="step-desc">All AI-flagged patterns were manually reviewed against source transcripts before being treated as findings. The AI pipeline accelerated pattern detection; human judgment determined what those patterns meant and whether they warranted a recommendation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 Co-Design -->
+  <div class="cs-section">
+    <p class="cs-eyebrow">07 / Co-Design Validation</p>
+    <h2>From research insights to product-ready recommendations — with the people who'd use them</h2>
+
+    <p>Co-design workshops (Wk 9–12) brought RBTs, BCBAs, and CDs into the same room to validate AI synthesis findings and stress-test proposed solutions before any engineering investment. Four distinct needs emerged, each traceable to specific field observations.</p>
+
+    <div class="codesign-grid">
+      <div class="cd-card">
+        <div class="cd-header cdh-sage">
+          <div class="cd-dot cdd-sage"></div>
+          <p class="cd-header-title">Language gap — clinical vs. field vocabulary</p>
+        </div>
+        <div class="cd-body">
+          <p class="cd-need cdn-sage">RBT Need · BCBA Need</p>
+          <p>The UI used BCBA clinical taxonomy throughout. RBTs used different everyday language for the same behavioral events — creating systematic miscoding as RBTs selected "close enough" terms.</p>
+          <p><strong>Output:</strong> Participants mapped RBT-natural language onto BCBA clinical terms and identified 12 high-frequency terms driving consistent miscoding.</p>
+        </div>
+      </div>
+      <div class="cd-card">
+        <div class="cd-header cdh-rose">
+          <div class="cd-dot cdd-rose"></div>
+          <p class="cd-header-title">High-behavior moments — the "hands-full" capture problem</p>
+        </div>
+        <div class="cd-body">
+          <p class="cd-need cdn-rose">Primary RBT Need</p>
+          <p>During high-behavior episodes, the tablet was set aside. All behavioral data for these moments — often the most clinically significant — was lost or reconstructed from memory.</p>
+          <p><strong>Output:</strong> A one-tap behavior flag that timestamps the moment instantly, with an ABC prompt before session note submission capturing context while memory is fresh.</p>
+        </div>
+      </div>
+      <div class="cd-card">
+        <div class="cd-header cdh-laven">
+          <div class="cd-dot cdd-laven"></div>
+          <p class="cd-header-title">Data loss prevention — real-time save access</p>
+        </div>
+        <div class="cd-body">
+          <p class="cd-need cdn-laven">Secondary RBT Need</p>
+          <p>RBTs were losing in-progress data to accidental navigation, app timeouts, or device failures. A save function existed but required navigating away from the data entry context.</p>
+          <p><strong>Output:</strong> A persistent "Save Progress" button positioned directly adjacent to the data collection fields — zero navigation, zero cognitive overhead.</p>
+        </div>
+      </div>
+      <div class="cd-card">
+        <div class="cd-header cdh-sand">
+          <div class="cd-dot cdd-sand"></div>
+          <p class="cd-header-title">Missing data visibility — the accountability layer</p>
+        </div>
+        <div class="cd-body">
+          <p class="cd-need cdn-sand">BCBA Need · CD Need</p>
+          <p>BCBAs and CDs had no way to identify missing session data or trace which RBT conducted a specific session. Missing data was often discovered weeks after the fact.</p>
+          <p><strong>Output:</strong> A Data Tracker dashboard surfacing missing session records with RBT-to-client traceability — enabling same-day follow-up while memory is intact.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 Recommendations -->
+  <div class="cs-section">
+    <p class="cs-eyebrow">08 / Recommendations</p>
+    <h2>Four prioritized interventions — each grounded in user evidence</h2>
+
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-num rn-sage">1</div>
+        <div class="rec-content">
+          <span class="rec-tag rt-sage">Priority 1 · Real-time capture</span>
+          <p class="rec-title">One-Tap Behavior Flag + ABC Nudge</p>
+          <p class="rec-desc">A single large-target button timestamps a behavioral event the moment it occurs, freeing the RBT to manage the child immediately. Before session note submission, a structured ABC prompt ensures clinical context is captured. Target: under 1 second to log; ABC completion under 2 minutes.</p>
+          <p class="rec-source">↳ Contextual inquiry (hours 2–3) + BCBA interviews: "ABC data is almost always missing for high-behavior sessions"</p>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num rn-rose">2</div>
+        <div class="rec-content">
+          <span class="rec-tag rt-rose">Priority 2 · Data integrity</span>
+          <p class="rec-title">Persistent "Save Progress" Button</p>
+          <p class="rec-desc">A persistent, zero-navigation save action anchored adjacent to data entry fields. Single tap, no confirmation dialog. Eliminates session data loss from navigation errors, app timeouts, or device failures during extended sessions.</p>
+          <p class="rec-source">↳ Diary studies (data loss events) + RBT co-design: "I need it to be as easy as blinking"</p>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num rn-laven">3</div>
+        <div class="rec-content">
+          <span class="rec-tag rt-laven">Priority 3 · Vocabulary alignment</span>
+          <p class="rec-title">Unified Clinical Lexicon</p>
+          <p class="rec-desc">Replace BCBA-centric clinical taxonomy throughout the RBT data entry experience with field-naturalistic language mapping to the same underlying clinical codes. 12 high-frequency terms identified as primary miscoding drivers. BCBAs see clinical terms in their analytical views; RBTs see field language in their entry screens.</p>
+          <p class="rec-source">↳ AI lexicon misalignment analysis + co-design vocabulary mapping exercise</p>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num rn-sand">4</div>
+        <div class="rec-content">
+          <span class="rec-tag rt-sand">Priority 4 · Accountability infrastructure</span>
+          <p class="rec-title">BCBA / CD Data Tracker Dashboard</p>
+          <p class="rec-desc">A real-time dashboard for BCBAs and CDs showing missing session records with client-to-RBT traceability. Enables same-day follow-up on data gaps while the RBT's session memory is still accurate. Reduces the lag between a missing data event and recovery from weeks to hours.</p>
+          <p class="rec-source">↳ BCBA depth interviews + CD stakeholder sessions during co-design workshops</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 09 Impact -->
+  <div class="cs-section">
+    <p class="cs-eyebrow">09 / Business Impact</p>
+    <h2>Measured outcomes, with baselines</h2>
+
+    <p>Outcomes were measured 8 weeks post-implementation across the same RBT and BCBA cohort who participated in the research. Baselines were established during the Define phase using the same measurement instruments.</p>
+
+    <div class="impact-grid">
+      <div class="impact-card ic-sage">
+        <span class="impact-num">83%</span>
+        <span class="impact-label">Faster per-event logging</span>
+        <p class="impact-detail">One-tap Behavior Flag reduced logging time from 12 seconds to 2 seconds per behavioral event.</p>
+        <p class="impact-baseline">Baseline: 12s / event · Post: 2s / event</p>
+      </div>
+      <div class="impact-card ic-rose">
+        <span class="impact-num">90%</span>
+        <span class="impact-label">Reduction in data errors</span>
+        <p class="impact-detail">Back-filled and timestamp-inconsistent records dropped 90% following deployment of the ABC Nudge, Save Progress, and lexicon alignment.</p>
+        <p class="impact-baseline">~40% of records previously flagged as low-confidence</p>
+      </div>
+      <div class="impact-card ic-laven">
+        <span class="impact-num">80%</span>
+        <span class="impact-label">Increase in engagement</span>
+        <p class="impact-detail">Measured via session completion rates, data submission rates, and CSAT scores from the same RBT cohort.</p>
+        <p class="impact-baseline">Pre-implementation CSAT & completion benchmarks</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 Reflections -->
+  <div class="cs-section">
+    <p class="cs-eyebrow">10 / Reflections</p>
+    <h2>What I'd do differently — and what I learned</h2>
+
+    <div class="reflect-grid">
+      <div class="reflect-card">
+        <h3>What worked well</h3>
+        <p>Applying Cognitive Load Theory as a reframing device was the single most effective strategic move. It gave engineering and clinical leadership a shared mental model for why "bad data" was a design problem, not a people problem. The AI synthesis pipeline compressed a month of manual coding into a week without sacrificing rigor, because I maintained human validation at every stage.</p>
+      </div>
+      <div class="reflect-card">
+        <h3>What I'd do differently</h3>
+        <p>I would include remote RBTs in shadowing from Week 1, not Week 4–5. Their distinct constraint set — device positioning, physical space management — surfaced the one-tap solution. I'd also involve CDs in co-design from the beginning rather than primarily at the validation stage. Their accountability lens shaped the Data Tracker requirement in ways that could have influenced earlier decisions.</p>
+      </div>
+      <div class="reflect-card">
+        <h3>The HIPAA constraint as a design teacher</h3>
+        <p>The Voice NLP solution initially explored in synthesis was compelling — and ultimately not viable within compliance and engineering constraints of the immediate roadmap. Working through that constraint with Legal and Dev led to the ABC Nudge solution, which achieved better clinical outcomes within existing infrastructure. Constraints forced a better answer.</p>
+      </div>
+      <div class="reflect-card">
+        <h3>What this changed about how I run research</h3>
+        <p>Users cannot tell you what they do when their hands are full — they tell you what they wish they did. Shadowing across the full session lifecycle, including the unglamorous end-of-session "data dump" hour, was the only way to see the real problem. Full-lifecycle observation is now non-negotiable for any high-stakes workflow research I run.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next case -->
+  <div class="next-case">
+    <div>
+      <p class="next-label">Next Case Study</p>
+      <p class="next-title">The Enthusiasm Gap</p>
+      <p class="next-sub">RAD Lab, SF State · Coming soon</p>
+    </div>
+    <a href="enthusiasm-gap.html" class="next-btn">Read next case study →</a>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <p>Rashmi Bhuyan &middot; UX Researcher &middot; contact.rashmibhuyan@gmail.com</p>
+</footer>
+
+</body>
+</html>
